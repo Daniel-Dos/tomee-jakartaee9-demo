@@ -1,0 +1,68 @@
+{
+	"id": "750eb8de-b776-c0b3-7276-dbf1f12f60df",
+	"name": "Book-Store-Jakarta",
+	"description": "",
+	"order": [
+		"3186f8f8-859c-53d7-fa4a-20287b186b83",
+		"37db9fc7-f514-f85f-22fc-3d4087c36e58"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1624066299109,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "3186f8f8-859c-53d7-fa4a-20287b186b83",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/api/books",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1624066378333,
+			"name": "GetBooks",
+			"description": "",
+			"collectionId": "750eb8de-b776-c0b3-7276-dbf1f12f60df",
+			"responses": []
+		},
+		{
+			"id": "37db9fc7-f514-f85f-22fc-3d4087c36e58",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/api/books",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1624066447346,
+			"name": "PostBook",
+			"description": "",
+			"collectionId": "750eb8de-b776-c0b3-7276-dbf1f12f60df",
+			"responses": [],
+			"rawModeData": "{\n\t\"title\":\"How to Java Programming\",\n\t\"author\":\"Deitel & Deitel\"\n}\n"
+		}
+	]
+}

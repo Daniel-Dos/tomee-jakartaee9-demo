@@ -20,18 +20,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.repository;
+package com.medium.danieldiasjava.jakarta.tomee.dto;
 
-import java.util.List;
-
-import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author Daniel Dias
  *
  */
-public interface BookStoreRepository {
+public class BookDTO {
 
-	public List<BookDTO> getBooks();
-	public void saveBook(BookDTO book);
+	@NotEmpty
+	private String title;
+
+	@NotEmpty
+	private String author;
+
+	public BookDTO() {
+	}
+
+	public BookDTO(String title, String author) {
+		this.title = title;
+		this.author = author;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	@Override
+	public String toString() {
+		return "BookDTO [title=" + title + ", author=" + author + "]";
+	}
 }

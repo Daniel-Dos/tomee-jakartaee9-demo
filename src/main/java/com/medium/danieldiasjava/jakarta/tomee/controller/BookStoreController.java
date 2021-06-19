@@ -22,6 +22,7 @@
  */
 package com.medium.danieldiasjava.jakarta.tomee.controller;
 
+import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 import com.medium.danieldiasjava.jakarta.tomee.dto.ResponseDTO;
 import com.medium.danieldiasjava.jakarta.tomee.model.Book;
 import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreService;
@@ -63,8 +64,8 @@ public class BookStoreController {
 	}
 
 	@POST
-	public Response saveBooks(@Valid Book book) {
-		this.bookStoreService.saveBook(book);
-		return Response.status(Status.CREATED).entity(new ResponseDTO(book,"saved!",Status.CREATED.getStatusCode())).build();
+	public Response saveBooks(@Valid BookDTO bookDto) {
+		this.bookStoreService.saveBook(bookDto);
+		return Response.status(Status.CREATED).entity(new ResponseDTO(bookDto,"saved!",Status.CREATED.getStatusCode())).build();
 	}
 }

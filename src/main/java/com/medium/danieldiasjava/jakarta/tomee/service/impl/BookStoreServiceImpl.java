@@ -25,6 +25,7 @@ package com.medium.danieldiasjava.jakarta.tomee.service.impl;
 import java.util.List;
 
 import com.medium.danieldiasjava.jakarta.tomee.annotations.Service;
+import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 import com.medium.danieldiasjava.jakarta.tomee.model.Book;
 import com.medium.danieldiasjava.jakarta.tomee.repository.BookStoreRepository;
 import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreService;
@@ -43,15 +44,15 @@ public class BookStoreServiceImpl implements BookStoreService {
 	private BookStoreRepository bookStoreRepository;
 	
 	@Inject
-	private Event<Book> bookEvent;
+	private Event<BookDTO> bookEvent;
 	
 	@Override
-	public List<Book> getBooks() {
+	public List<BookDTO> getBooks() {
 		return this.bookStoreRepository.getBooks();
 	}
 
 	@Override
-	public void saveBook(Book book) {
+	public void saveBook(BookDTO book) {
 		this.bookStoreRepository.saveBook(book);
 		this.bookEvent.fire(book);
 	}

@@ -24,7 +24,7 @@ package com.medium.danieldiasjava.jakarta.tomee.service;
 
 import java.util.List;
 
-import com.medium.danieldiasjava.jakarta.tomee.model.Book;
+import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 
 /**
  * @author Daniel Dias
@@ -32,6 +32,6 @@ import com.medium.danieldiasjava.jakarta.tomee.model.Book;
  */
 public interface BookStoreService {
 
-	public List<Book> getBooks();
-	public void saveBook(Book book);
+	public List<BookDTO> getBooks();
+	public void saveBook(BookDTO book);
 }

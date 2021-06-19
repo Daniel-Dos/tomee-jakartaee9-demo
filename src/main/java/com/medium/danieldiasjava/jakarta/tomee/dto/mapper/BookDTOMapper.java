@@ -20,18 +20,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.repository;
+package com.medium.danieldiasjava.jakarta.tomee.dto.mapper;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
+import com.medium.danieldiasjava.jakarta.tomee.model.Book;
 
-/**
- * @author Daniel Dias
- *
- */
-public interface BookStoreRepository {
+import jakarta.enterprise.context.ApplicationScoped;
 
-	public List<BookDTO> getBooks();
-	public void saveBook(BookDTO book);
+@Mapper
+public interface BookDTOMapper {
+
+    Book bookDtoToBook(BookDTO bookDto);
+
+    BookDTO bookToBookDto(Book book);
+
+    Collection<BookDTO> bookListToBookDtoList(List<Book> book);
+    
+    Collection<Book> bookDtoListToBookList(List<BookDTO> bookDto);
 }

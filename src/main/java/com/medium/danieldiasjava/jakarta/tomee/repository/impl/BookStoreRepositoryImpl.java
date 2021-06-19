@@ -25,6 +25,8 @@ package com.medium.danieldiasjava.jakarta.tomee.repository.impl;
 import java.util.List;
 
 import com.medium.danieldiasjava.jakarta.tomee.annotations.Repository;
+import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
+import com.medium.danieldiasjava.jakarta.tomee.dto.mapper.BookDTOMapper;
 import com.medium.danieldiasjava.jakarta.tomee.model.Book;
 import com.medium.danieldiasjava.jakarta.tomee.repository.BookStoreRepository;
 
@@ -41,18 +43,22 @@ public class BookStoreRepositoryImpl implements BookStoreRepository {
 
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private BookDTOMapper bookDTOMapper;
 
 	@Override
-	public List<Book> getBooks() {
+	public List<BookDTO> getBooks() {
 		this.em.getTransaction().begin();
 		TypedQuery<Book> query = em.createNamedQuery("Book.findAll", Book.class);
-		return query.getResultList();
+		 List<BookDTO> bookDtoList = (List<BookDTO>) this.bookDTOMapper.bookListToBookDtoList(query.getResultList());
+		 return bookDtoList;
 	}
 
 	@Override
-	public void saveBook(Book book) {
+	public void saveBook(BookDTO book) {
 		this.em.getTransaction().begin();
-		this.em.persist(book);
+		this.em.persist(this.bookDTOMapper.bookDtoToBook(book));
 		this.em.getTransaction().commit();
 	}
 }

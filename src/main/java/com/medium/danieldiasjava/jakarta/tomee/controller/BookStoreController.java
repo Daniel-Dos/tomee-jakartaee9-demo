@@ -8,6 +8,7 @@ import com.medium.danieldiasjava.jakarta.tomee.model.Book;
 import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreService;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -30,6 +31,9 @@ public class BookStoreController {
 	@Inject
 	private BookStoreService bookStoreService;
 	
+	@Inject
+	private Event<Book> bookEvent;
+	
 	@GET
 	public Response getBooks() {
 		return Response.ok().entity(new ResponseDTO(bookStoreService.getBooks())).build();
@@ -38,6 +42,7 @@ public class BookStoreController {
 	@POST
 	public Response saveBooks(Book book) {
 		this.bookStoreService.saveBook(book);
+		this.bookEvent.fire(book);
 		return Response.status(Status.CREATED).entity(new ResponseDTO(book,"saved!")).build();
 	}
 }

@@ -20,28 +20,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
+package com.medium.danieldiasjava.jakarta.tomee.banner;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
-
-import com.medium.danieldiasjava.jakarta.tomee.model.Book;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
-	
+@ApplicationScoped
+public class Banner {
+
 	@Inject
 	private Logger logger;
 	
-	public void observeEvent(@Observes Book book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
+	public void init(@Observes @Initialized(ApplicationScoped.class) Object o ) {
+
+		try (var reader = new BufferedReader(
+				new InputStreamReader(getClass().getResourceAsStream("/banner.txt")))) {
+			var banner= reader.lines().collect(Collectors.joining(System.lineSeparator()));
+			System.out.println(banner);
+		} catch (IOException e) {
+			this.logger.error(e.getMessage());
+		}
 	}
 }

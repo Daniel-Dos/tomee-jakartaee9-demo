@@ -31,6 +31,10 @@ import java.lang.annotation.Target;
 
 import jakarta.enterprise.inject.Stereotype;
 
+/**
+ * @author Daniel Dias
+ *
+ */
 @Stereotype
 @Target( {TYPE} )
 @Retention(RUNTIME)

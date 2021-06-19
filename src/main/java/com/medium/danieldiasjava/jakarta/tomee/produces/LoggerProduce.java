@@ -20,28 +20,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
+package com.medium.danieldiasjava.jakarta.tomee.produces;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
 import org.slf4j.Logger;
-
-import com.medium.danieldiasjava.jakarta.tomee.model.Book;
-
-import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
-	
-	@Inject
-	private Logger logger;
-	
-	public void observeEvent(@Observes Book book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
+@ApplicationScoped
+public class LoggerProduce {
+
+    @Produces
+	public Logger produceLogger(InjectionPoint injectionPoint) { 
+        return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
 	}
 }

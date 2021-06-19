@@ -20,28 +20,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
-
-import org.slf4j.Logger;
-
-import com.medium.danieldiasjava.jakarta.tomee.model.Book;
-
-import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+package com.medium.danieldiasjava.jakarta.tomee.dto;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
-	
-	@Inject
-	private Logger logger;
-	
-	public void observeEvent(@Observes Book book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
-	}
+public class Errors {
+    
+    private String propertyPath;
+    private String messageErro;
+    
+    public Errors(String propertyPath, String messageErro) {
+        this.propertyPath = propertyPath;
+        this.messageErro = messageErro;
+    }
+
+    public String getPropertyPath() {
+        return propertyPath;
+    }
+
+    public void setPropertyPath(String propertyPath) {
+        this.propertyPath = propertyPath;
+    }
+
+    public String getMessageErro() {
+        return messageErro;
+    }
+
+    public void setMessageErro(String messageErro) {
+        this.messageErro = messageErro;
+    }
 }

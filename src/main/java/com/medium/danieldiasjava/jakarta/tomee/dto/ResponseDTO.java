@@ -26,41 +26,52 @@ import java.util.Collection;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 
+/**
+ * @author Daniel Dias
+ *
+ */
 public class ResponseDTO {
 
-    @JsonbProperty(value = "message")
-    private String message;
-    
-    @JsonbProperty(value = "data")
-    private Object data;
-    
-    @JsonbProperty(value = "dataCollection")
-    private Collection<?> dataCollection;
-    
-    public ResponseDTO(Collection<?> dataCollection) {
-        this.dataCollection = dataCollection;
-    }
-    
-    public ResponseDTO(Object data,String message) {
-        this.message = message;
-        this.data = data;
-    }
-  
-    public ResponseDTO() {}
+	@JsonbProperty(value = "message")
+	private String message;
 
-    public String getMessage() {
-        return this.message;
-    }
+	@JsonbProperty(value = "data")
+	private Object data;
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	@JsonbProperty(value = "dataCollection")
+	private Collection<?> dataCollection;
 
+	@JsonbProperty(value = "status")
+	private int statusCode;
+
+	@JsonbProperty(value = "erros")
+	private Collection<Errors> erros;
+
+	public ResponseDTO(Collection<?> dataCollection, int statusCode) {
+		this.dataCollection = dataCollection;
+		this.statusCode = statusCode;
+	}
+
+	public ResponseDTO(Object data, String message, int statusCode) {
+		this.message = message;
+		this.data = data;
+		this.statusCode = statusCode;
+	}
+
+	public ResponseDTO() {
+	}
+
+	public String getMessage() {
+		return this.message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public Object getData() {
 		return data;
 	}
-
 
 	public void setData(Object data) {
 		this.data = data;
@@ -74,8 +85,25 @@ public class ResponseDTO {
 		this.dataCollection = dataCollection;
 	}
 
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
+	public Collection<Errors> getErros() {
+		return erros;
+	}
+
+	public void setErros(Collection<Errors> erros) {
+		this.erros = erros;
+	}
+
 	@Override
 	public String toString() {
-		return "ResponseDTO [message=" + message + ", data=" + data + ", dataCollection=" + dataCollection + "]";
+		return "ResponseDTO [message=" + message + ", data=" + data + ", dataCollection=" + dataCollection
+				+ ", statusCode=" + statusCode + ", erros=" + erros + "]";
 	}
 }

@@ -6,7 +6,7 @@
 
 	<persistence-unit name="book-store" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<non-jta-data-source>mailer</non-jta-data-source>
+		<non-jta-data-source>book-store</non-jta-data-source>
 		<class>com.medium.danieldiasjava.jakarta.tomee.model.Book</class>
 		<properties>
 			<property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />

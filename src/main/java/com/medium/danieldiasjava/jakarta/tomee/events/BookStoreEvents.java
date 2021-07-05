@@ -24,7 +24,7 @@ package com.medium.danieldiasjava.jakarta.tomee.events;
 
 import org.slf4j.Logger;
 
-import com.medium.danieldiasjava.jakarta.tomee.model.Book;
+import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -40,7 +40,7 @@ public class BookStoreEvents {
 	@Inject
 	private Logger logger;
 	
-	public void observeEvent(@Observes Book book) {
+	public void observeEvent(@Observes BookDTO book) {
 		this.logger.debug("Your order has been sent for processing...");
 		this.logger.info("Your order has been sent for processing...");
 	}

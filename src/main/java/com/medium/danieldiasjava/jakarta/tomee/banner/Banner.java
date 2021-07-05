@@ -23,10 +23,14 @@
 package com.medium.danieldiasjava.jakarta.tomee.banner;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
@@ -43,12 +47,18 @@ public class Banner {
 	@Inject
 	private Logger logger;
 	
-	public void init(@Observes @Initialized(ApplicationScoped.class) Object o ) {
+	@Inject
+	@ConfigProperty(name = "banner.file")
+	private String banner;
+	
+	public void init(@Observes @Initialized(ApplicationScoped.class) Object o ) throws FileNotFoundException {
 
-		try (var reader = new BufferedReader(
-				new InputStreamReader(getClass().getResourceAsStream("/banner.txt")))) {
-			var banner= reader.lines().collect(Collectors.joining(System.lineSeparator()));
-			System.out.println(banner);
+		var isr = "/banner.txt".equals(banner) ? new InputStreamReader(getClass().getResourceAsStream(banner)) 
+				                               : new InputStreamReader(new FileInputStream(new File(banner)));
+		try (var reader = new BufferedReader(isr)) {
+			var bannerOut= reader.lines()
+					          .collect(Collectors.joining(System.lineSeparator()));
+			System.out.println(bannerOut);
 		} catch (IOException e) {
 			this.logger.error(e.getMessage());
 		}

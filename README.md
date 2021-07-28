@@ -81,3 +81,9 @@ For default the app starting with the banner "Apache TomEE" . But your can chang
 ```console
 export CATALINA_OPTS="-Dbanner.file=PATH_OF_BANNER"
 ```
+
+to disabled the banner your can change using the properties `enable.banner` in JVM Args:
+
+```console
+export CATALINA_OPTS="-Denable.banner=false"
+```

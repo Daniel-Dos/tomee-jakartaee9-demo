@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -51,7 +52,13 @@ public class Banner {
 	@ConfigProperty(name = "banner.file")
 	private String banner;
 	
+	@Inject
+	@ConfigProperty(name = "enable.banner")
+	private Boolean enableBanner;
+	
 	public void init(@Observes @Initialized(ApplicationScoped.class) Object o ) throws FileNotFoundException {
+
+		if (enableBanner) {
 
 		var isr = "/banner.txt".equals(banner) ? new InputStreamReader(getClass().getResourceAsStream(banner)) 
 				                               : new InputStreamReader(new FileInputStream(new File(banner)));
@@ -62,5 +69,6 @@ public class Banner {
 		} catch (IOException e) {
 			this.logger.error(e.getMessage());
 		}
+	  }
 	}
 }

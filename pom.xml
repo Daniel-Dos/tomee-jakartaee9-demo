@@ -103,6 +103,17 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded</artifactId>
+			<version>05.00.02-MS-GA</version>
+		</dependency>
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded-configuration</artifactId>
+			<version>05.00.02-MS-GA</version>
+		</dependency>
 	</dependencies>
 
 	<build>

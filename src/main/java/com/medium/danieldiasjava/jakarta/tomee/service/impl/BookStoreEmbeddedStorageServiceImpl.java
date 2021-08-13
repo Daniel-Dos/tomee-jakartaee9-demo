@@ -20,28 +20,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
+package com.medium.danieldiasjava.jakarta.tomee.service.impl;
 
-import org.slf4j.Logger;
+import java.util.List;
 
+import com.medium.danieldiasjava.jakarta.tomee.annotations.Service;
 import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
+import com.medium.danieldiasjava.jakarta.tomee.repository.BookEmbeddedStorageRepository;
+import com.medium.danieldiasjava.jakarta.tomee.repository.BookStoreRepository;
+import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreEmbeddedStorageService;
 
-import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
+@Service
+public class BookStoreEmbeddedStorageServiceImpl implements BookStoreEmbeddedStorageService {
+
+	@Inject
+	private BookEmbeddedStorageRepository bookEmbeddedStorageRepository;
 	
 	@Inject
-	private Logger logger;
+	private Event<BookDTO> bookEvent;
 	
-	public void observeEvent(@Observes BookDTO book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
+	@Override
+	public List<BookDTO> getBooks() {
+		return this.bookEmbeddedStorageRepository.getBooks();
+	}
+
+	@Override
+	public void saveBook(BookDTO book) {
+		this.bookEmbeddedStorageRepository.saveBook(book);
+		this.bookEvent.fire(book);
 	}
 }

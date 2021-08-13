@@ -25,6 +25,7 @@ package com.medium.danieldiasjava.jakarta.tomee.controller;
 import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 import com.medium.danieldiasjava.jakarta.tomee.dto.ResponseDTO;
 import com.medium.danieldiasjava.jakarta.tomee.model.Book;
+import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreEmbeddedStorageService;
 import com.medium.danieldiasjava.jakarta.tomee.service.BookStoreService;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -53,7 +54,11 @@ public class BookStoreController {
 	@Inject
 	private BookStoreService bookStoreService;
 	
+	@Inject
+	private BookStoreEmbeddedStorageService bookStoreEmbeddedStorageService;
+	
 	@GET
+	@Path("/v1")
 	public Response getBooks() {
 		
 		var books = bookStoreService.getBooks();
@@ -64,8 +69,27 @@ public class BookStoreController {
 	}
 
 	@POST
+	@Path("/v1")
 	public Response saveBooks(@Valid BookDTO bookDto) {
 		this.bookStoreService.saveBook(bookDto);
+		return Response.status(Status.CREATED).entity(new ResponseDTO(bookDto,"saved!",Status.CREATED.getStatusCode())).build();
+	}
+	
+	@GET
+	@Path("/v2")
+	public Response getBooksEmbeddedStorage() {
+		
+		var books = bookStoreEmbeddedStorageService.getBooks();
+		if(books.isEmpty()) {
+			return Response.status(Status.OK).entity(new ResponseDTO(books,Status.NO_CONTENT.getStatusCode())).build();	
+		}
+		return Response.status(Status.OK).entity(new ResponseDTO(books,Status.OK.getStatusCode())).build();
+	}
+
+	@POST
+	@Path("/v2")
+	public Response saveBooksEmbeddedStorage(@Valid BookDTO bookDto) {
+		this.bookStoreEmbeddedStorageService.saveBook(bookDto);
 		return Response.status(Status.CREATED).entity(new ResponseDTO(bookDto,"saved!",Status.CREATED.getStatusCode())).build();
 	}
 }

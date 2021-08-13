@@ -20,28 +20,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
+package com.medium.danieldiasjava.jakarta.tomee.produces;
 
-import org.slf4j.Logger;
+import java.nio.file.Paths;
 
-import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import jakarta.enterprise.inject.Default;
+import jakarta.enterprise.inject.Disposes;
+import jakarta.enterprise.inject.Produces;
+import one.microstream.storage.embedded.types.EmbeddedStorage;
+import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
-	
-	@Inject
-	private Logger logger;
-	
-	public void observeEvent(@Observes BookDTO book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
+@ApplicationScoped
+public class EmbeddedStorageManagerProducer {
+
+
+	@ApplicationScoped
+	@Produces
+	public EmbeddedStorageManager getEmbeddedStorageManager() {
+		return EmbeddedStorage.start(Paths.get("bookStore"));
+	}
+
+	public void shutdown(@Disposes @Default EmbeddedStorageManager manager) {
+		if(manager != null) {
+			manager.shutdown();
+			manager = null;
+		}
 	}
 }

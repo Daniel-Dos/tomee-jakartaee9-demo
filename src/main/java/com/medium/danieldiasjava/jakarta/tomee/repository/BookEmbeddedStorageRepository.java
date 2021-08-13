@@ -20,28 +20,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.medium.danieldiasjava.jakarta.tomee.events;
+package com.medium.danieldiasjava.jakarta.tomee.repository;
 
-import org.slf4j.Logger;
+import java.util.List;
 
 import com.medium.danieldiasjava.jakarta.tomee.dto.BookDTO;
 
-import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 /**
  * @author Daniel Dias
  *
  */
-@Named
-public class BookStoreEvents {
-	
-	@Inject
-	private Logger logger;
-	
-	public void observeEvent(@Observes BookDTO book) {
-		this.logger.debug("Your order has been sent for processing...");
-		this.logger.info("Your order has been sent for processing...");
-	}
+public interface BookEmbeddedStorageRepository {
+
+	public void saveBook(BookDTO book);
+	public List<BookDTO> getBooks();
 }
